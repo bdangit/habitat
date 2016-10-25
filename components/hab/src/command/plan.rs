@@ -12,14 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-pub mod cli;
-pub mod config;
-pub mod file;
-pub mod pkg;
-pub mod origin;
-pub mod plan;
-pub mod ring;
-pub mod service;
-pub mod studio;
-pub mod sup;
-pub mod user;
+pub mod create {
+    use std::io;
+    use std::fs::File;
+    use std::path::Path;
+
+    use common::ui::{Status, UI};
+
+    use error::Result;
+
+    pub fn start(ui: &mut UI,
+                 pkg_name: &str) -> Result<()> {
+        try!(ui.begin(format!("Lets make a plan for {}",
+                              &pkg_name)));
+        Ok(())
+    }
+}

@@ -210,6 +210,15 @@ pub fn get() -> App<'static, 'static> {
                     (ex: /home/acme-redis-3.0.7-21120102031201-x86_64-linux.hart)")
             )
         )
+        (@subcommand plan =>
+            (about: "Commands relating to Habitat plans")
+            (aliases: &["pl"])
+            (@setting ArgRequiredElseHelp)
+            (@subcommand create =>
+                (about: "Lets make a plan!")
+                (@arg PKG_NAME: +required +takes_value "Package name")
+            )
+        )
         (@subcommand ring =>
             (about: "Commands relating to Habitat rings")
             (aliases: &["r", "ri", "rin"])

@@ -132,6 +132,12 @@ fn start(ui: &mut UI) -> Result<()> {
                 _ => unreachable!(),
             }
         }
+        ("plan", Some(matches)) => {
+            match matches.subcommand() {
+                ("create", Some(m)) => try!(sub_plan_create(ui, m)),
+                _ => unreachable!(),
+            }
+        }
         ("ring", Some(matches)) => {
             match matches.subcommand() {
                 ("key", Some(m)) => {
@@ -487,6 +493,15 @@ fn sub_pkg_verify(ui: &mut UI, m: &ArgMatches) -> Result<()> {
     init();
 
     command::pkg::verify::start(ui, &src, &default_cache_key_path(fs_root_path))
+}
+
+fn sub_plan_create(ui: &mut UI, m: &ArgMatches) -> Result<()> {
+    let fs_root = henv::var(FS_ROOT_ENVVAR).unwrap_or(FS_ROOT_PATH.to_string());
+    let fs_root_path = Some(Path::new(&fs_root));
+    let pkg_name = m.value_of("PKG_NAME").unwrap();
+    init();
+
+    command::plan::create::start(ui, &pkg_name)
 }
 
 fn sub_ring_key_export(m: &ArgMatches) -> Result<()> {
